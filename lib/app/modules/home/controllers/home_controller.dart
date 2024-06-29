@@ -1,23 +1,58 @@
 import 'package:get/get.dart';
+import 'package:machine_test_zartek/app/helper/popup/logout_popup.dart';
+import 'package:machine_test_zartek/app/model/item_model.dart';
+import 'package:machine_test_zartek/app/modules/cart/controllers/cart_controller.dart';
+import 'package:machine_test_zartek/app/repository/category_repository.dart';
+import 'package:machine_test_zartek/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
+  final pageIndex = 0.obs;
+  RxBool isLoading = false.obs;
+  RxBool isOnTap = false.obs;
+  final _apiJob = CategoryRepository();
+  RxList<TableMenuList> itemsList = <TableMenuList>[].obs;
+  final CartController cartController = Get.find();
   @override
-  void onInit() {
+  void onInit() async {
+    cartController.getData();
+    getItems();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  getItems() {
+    isLoading(true);
+    _apiJob.getItems().then((value) {
+      setItemsList(value.first);
+      isLoading(false);
+    }).onError((error, stackTrace) {
+      isLoading(false);
+    });
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void setItemsList(ItemModel value) {
+    itemsList.clear();
+    itemsList.addAll(value.tableMenuList);
   }
 
-  void increment() => count.value++;
+  addQty(CategoryDish items) {
+    items.qty = items.qty++;
+    update();
+  }
+
+  minusQty(CategoryDish items) {
+    items.qty = items.qty--;
+    update();
+  }
+
+  void logOut() async {
+    dynamic returnResponse =
+        await openDialog('Logout', 'Are you sure you want to Logout ?');
+    if (returnResponse == true) {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+
+      Get.offAllNamed(Routes.SPLASH);
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:machine_test_zartek/app/helper/texts/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -5,9 +6,14 @@ import 'package:flutter/material.dart';
 class CommonAppBar extends StatelessWidget implements PreferredSize {
   final String textLabel;
   final Function? onPressed;
+  final bool? visible;
   Function? onpress;
   CommonAppBar(
-      {super.key, required this.textLabel, this.onPressed, this.onpress});
+      {super.key,
+      required this.textLabel,
+      this.onPressed,
+      this.onpress,
+      this.visible});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSize {
       elevation: 0.0,
       leading: InkWell(
         onTap: () {
-          onPressed!();
+          Get.back();
         },
         child: Icon(
           Icons.arrow_back,
