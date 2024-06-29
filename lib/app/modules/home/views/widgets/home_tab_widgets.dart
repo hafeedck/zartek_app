@@ -50,6 +50,7 @@ class ItemBuilder extends GetView<HomeController> {
                       imagePath: items.dishImage,
                       color: bgColor,
                       onTapAdd: () {
+                        // cartController.deleteData();
                         if (cartController.cartList.contains(items) == false) {
                           cartController.cartList.add(items);
                         }

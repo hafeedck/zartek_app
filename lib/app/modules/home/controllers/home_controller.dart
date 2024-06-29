@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:machine_test_zartek/app/helper/popup/logout_popup.dart';
 import 'package:machine_test_zartek/app/model/item_model.dart';
@@ -13,6 +14,9 @@ class HomeController extends GetxController {
   final _apiJob = CategoryRepository();
   RxList<TableMenuList> itemsList = <TableMenuList>[].obs;
   final CartController cartController = Get.find();
+  final GlobalKey<ScaffoldState> dealerDashboardscaffoldkey =
+      GlobalKey<ScaffoldState>();
+
   @override
   void onInit() async {
     cartController.getData();

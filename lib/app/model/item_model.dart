@@ -83,15 +83,15 @@ class CategoryDish {
   });
 
   factory CategoryDish.fromJson(Map<String, dynamic> json) => CategoryDish(
-        dishId: json["dish_id"],
-        dishName: json["dish_name"],
-        dishImage: json["dish_image"],
-        dishDescription: json["dish_description"],
-        nexturl: json["nexturl"],
+        dishId: json["dish_id"] ?? "",
+        dishName: json["dish_name"] ?? "",
+        dishImage: json["dish_image"] ?? "",
+        dishDescription: json["dish_description"] ?? "",
+        nexturl: json["nexturl"] ?? "",
         qty: json["qty"] ?? 0.obs,
-        dishType: json["dish_Type"],
-        dishCalories: json["dish_calories"],
-        dishPrice: json["dish_price"],
+        dishType: json["dish_Type"] ?? 0,
+        dishCalories: json["dish_calories"] ?? 0,
+        dishPrice: json["dish_price"] ?? 0,
         addonCat: json["addonCat"] == null
             ? []
             : List<AddonCat>.from(

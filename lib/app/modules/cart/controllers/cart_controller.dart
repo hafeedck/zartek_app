@@ -14,9 +14,26 @@ class CartController extends GetxController {
 
   void saveData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("cartdata", jsonEncode(cartList));
+    List<Map<String, dynamic>> cartListJson = [];
 
-    // getData();
+    for (var items in cartList) {
+      int addedQty = items.qty.value;
+      Map<String, dynamic> addedcartItem = {
+        'dishId': items.dishId,
+        'dishName': items.dishName,
+        'dishImage': items.dishImage,
+        'dishDescription': items.dishDescription,
+        'nexturl': "",
+        'qty': addedQty,
+        'dishType': items.dishType,
+        'dishCalories': items.dishCalories,
+        'dishPrice': items.dishPrice,
+        'addonCat': [],
+      };
+      cartListJson.add(addedcartItem);
+    }
+
+    sharedPreferences.setString("cartdata", jsonEncode(cartListJson));
   }
 
   getData() async {
@@ -26,7 +43,22 @@ class CartController extends GetxController {
     if (sharedPreferences.containsKey("cartdata")) {
       cartList.value = List<Map<String, dynamic>>.from(
               jsonDecode(sharedPreferences.getString("cartdata")!))
-          .map((x) => CategoryDish.fromJson(x))
+          .map((x) => CategoryDish(
+                dishId: x["dishId"],
+                dishName: x["dishName"],
+                dishImage: x["dishImage"],
+                dishDescription: x["dishDescription"],
+                qty: RxInt(x["qty"]),
+                nexturl: x["nexturl"] ?? '',
+                dishType: x["dishType"],
+                dishCalories: x["dishCalories"],
+                dishPrice: x["dishPrice"],
+                addonCat: (x["addonCat"] as List<dynamic>?)
+                        ?.map((item) =>
+                            AddonCat.fromJson(item as Map<String, dynamic>))
+                        .toList() ??
+                    [],
+              ))
           .toList();
     }
   }

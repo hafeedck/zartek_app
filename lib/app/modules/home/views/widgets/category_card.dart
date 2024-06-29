@@ -75,44 +75,19 @@ class CategoryItemCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            commonText2(rate, AppColor.primaryTextColor, 13,
-                                FontWeight.w500),
+                            commonText2("INR $rate", AppColor.primaryTextColor,
+                                13, FontWeight.w500),
                             100.0.spaceX,
-                            commonText2(calories, AppColor.primaryTextColor, 13,
-                                FontWeight.w500),
+                            commonText2("$calories calories",
+                                AppColor.primaryTextColor, 13, FontWeight.w500),
                           ],
                         ),
                         SizedBox(
-                          width: size.width * 0.7,
+                          width: size.width * 0.69,
                           child: commonText2(description,
                               AppColor.primaryTextColor, 12, FontWeight.w400),
                         ),
                         15.0.spaceY,
-                        // Container(
-                        //   height: 35,
-                        //   width: 120,
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(30),
-                        //       color: AppColor.phonebuttonColor),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       const Icon(
-                        //         Icons.minimize,
-                        //         color: Colors.white,
-                        //         size: 20,
-                        //       ).paddingOnly(bottom: 10),
-                        //       commonText2("12", AppColor.whiteColor, 14,
-                        //           FontWeight.w500),
-                        //       const Icon(
-                        //         Icons.add,
-                        //         color: Colors.white,
-                        //         size: 20,
-                        //       ).paddingOnly(top: 3)
-                        //     ],
-                        //   ).paddingOnly(left: 10, right: 10),
-                        // ),
                         CategoryCardWidget(
                           itemId: itemId,
                           onTapAdd: () {
@@ -133,10 +108,13 @@ class CategoryItemCard extends StatelessWidget {
                       ],
                     ),
                   ]).paddingOnly(left: 10),
-              Image.network(
-                imagePath,
-                height: 50,
-                width: 50,
+              SizedBox(
+                height: size.height * .1,
+                width: size.width * .15,
+                child: Image.network(
+                  imagePath,
+                  fit: BoxFit.fitHeight,
+                ),
               )
             ],
           ).paddingOnly(left: 8, right: 8).paddingAll(5),
