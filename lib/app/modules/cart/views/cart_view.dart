@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:machine_test_zartek/app/helper/colors/app_color.dart';
-import 'package:machine_test_zartek/app/helper/common_widgets/appbar/cart_appbar.dart';
+import 'package:machine_test_zartek/app/helper/common_widgets/appbar/common_appbar.dart';
 import 'package:machine_test_zartek/app/helper/common_widgets/buttons/common_button.dart';
 import 'package:machine_test_zartek/app/helper/texts/text_widget.dart';
 import 'package:machine_test_zartek/app/modules/cart/views/widgets/cart_card.dart';
@@ -35,7 +35,7 @@ class CartView extends GetView<CartController> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: AppColor.phonebuttonColor),
+                        color: AppColor.darkGreenColor),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -70,8 +70,10 @@ class CartView extends GetView<CartController> {
                             controller.addQty(items);
                           },
                           onTapMinus: () {
-                            if (items.qty.value != 0) {
+                            if (items.qty.value > 1) {
                               controller.minusQty(items);
+                            } else {
+                              controller.removeFromCart(items);
                             }
                           },
                           totalrate: controller.calculateRate(
@@ -109,16 +111,21 @@ class CartView extends GetView<CartController> {
                 ],
               ),
             ).paddingAll(8)),
-      bottomNavigationBar: SizedBox(
-        width: size.width * 0.7,
-        height: size.height * 0.06,
-        child: CommonButtonWidget(
-          label: "Place Order",
-          color: AppColor.phonebuttonColor,
-          onClick: () {},
-          borderRadius: 1820,
-        ),
-      ).paddingAll(12),
+      bottomNavigationBar: Obx(() => controller.cartList.isNotEmpty
+          ? SizedBox(
+              width: size.width * 0.7,
+              height: size.height * 0.06,
+              child: CommonButtonWidget(
+                label: "Place Order",
+                color: AppColor.darkGreenColor,
+                isLoading: controller.isLoading.value,
+                onClick: () {
+                  controller.placeOrder();
+                },
+                borderRadius: 1820,
+              ),
+            ).paddingAll(12)
+          : const SizedBox()),
     );
   }
 }

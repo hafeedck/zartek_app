@@ -28,42 +28,48 @@ class ItemBuilder extends GetView<HomeController> {
                   child:
                       commonText2("No data", Colors.black, 15, FontWeight.w500),
                 )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: category.categoryDishes.length,
-                  physics: const ScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final items = category.categoryDishes[index];
-                    final bgColor = index % 2 == 0
-                        ? AppColor.phonebuttonColor
-                        : AppColor.redColor;
-                    return CategoryItemCard(
-                      onTap: () {},
-                      itemId: items.dishId,
-                      name: items.dishName,
-                      rate: items.dishPrice.toString(),
-                      calories: items.dishCalories.toString(),
-                      customization: items.addonCat.isEmpty
-                          ? ""
-                          : items.addonCat.first.addonCategory,
-                      description: items.dishDescription,
-                      imagePath: items.dishImage,
-                      color: bgColor,
-                      onTapAdd: () {
-                        // cartController.deleteData();
-                        if (cartController.cartList.contains(items) == false) {
-                          cartController.cartList.add(items);
-                        }
-                        cartController.addQty(items);
+              : cartController.isLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: category.categoryDishes.length,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final items = category.categoryDishes[index];
+                        final bgColor = index % 2 == 0
+                            ? AppColor.phonebuttonColor
+                            : AppColor.redColor;
+                        return CategoryItemCard(
+                          onTap: () {},
+                          itemId: items.dishId,
+                          name: items.dishName,
+                          rate: items.dishPrice.toString(),
+                          calories: items.dishCalories.toString(),
+                          customization: items.addonCat.isEmpty
+                              ? ""
+                              : items.addonCat.first.addonCategory,
+                          description: items.dishDescription,
+                          imagePath: items.dishImage,
+                          color: bgColor,
+                          onTapAdd: () {
+                            if (cartController.cartList.contains(items) ==
+                                false) {
+                              cartController.cartList.add(items);
+                            }
+                            cartController.addQty(items);
+                          },
+                          onTapMinus: () {
+                            if (items.qty.value > 1) {
+                              cartController.minusQty(items);
+                            } else {
+                              cartController.removeFromCart(items);
+                            }
+                          },
+                        );
                       },
-                      onTapMinus: () {
-                        if (items.qty.value != 0) {
-                          cartController.minusQty(items);
-                        }
-                      },
-                    );
-                  },
-                )),
+                    )),
     );
   }
 }

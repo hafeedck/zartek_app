@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:machine_test_zartek/app/helper/colors/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class LoginTextField extends StatelessWidget {
   final Function? onChanged;
   final TextInputType? textInputType;
   final bool obscureText;
+  final bool? inputFormatters;
   final Function? suffixIconClick;
   final TextEditingController? textEditingController;
   final Widget? suffixIcon;
@@ -25,7 +27,8 @@ class LoginTextField extends StatelessWidget {
       this.textEditingController,
       this.validator,
       this.suffixIcon,
-      this.keytype});
+      this.keytype,
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +49,12 @@ class LoginTextField extends StatelessWidget {
             fontSize: 17, letterSpacing: 1, fontWeight: FontWeight.w500),
         keyboardType: keytype,
         // TextInputType.number,
-        // inputFormatters: <TextInputFormatter>[
-        //   FilteringTextInputFormatter.allow(RegExp(r'^[0-9][0-9]*')),
-        //   LengthLimitingTextInputFormatter(10),
-        // ],
+        inputFormatters: inputFormatters != null
+            ? <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'^[0-9][0-9]*')),
+                LengthLimitingTextInputFormatter(10),
+              ]
+            : null,
 
         decoration: InputDecoration(
           fillColor: const Color(0xFFF3F3F3),

@@ -62,17 +62,18 @@ class CartItemCard extends StatelessWidget {
                   SizedBox(
                     width: size.width * 0.3,
                     child: commonText2(
-                        name, AppColor.primaryTextColor, 15, FontWeight.w500),
+                        name, AppColor.primaryTextColor, 16, FontWeight.bold),
                   ),
-                  commonText2(
-                      rate, AppColor.primaryTextColor, 13, FontWeight.w500),
+                  commonText2("INR $rate", AppColor.primaryTextColor, 13,
+                      FontWeight.w500),
                   100.0.spaceX,
-                  commonText2(
-                      calories, AppColor.primaryTextColor, 13, FontWeight.w500),
+                  commonText2("$calories calories", AppColor.primaryTextColor,
+                      13, FontWeight.w500),
                 ],
               ).paddingOnly(left: 10),
               CategoryCardWidget(
                 itemId: itemId,
+                color: AppColor.darkGreenColor,
                 onTapAdd: () {
                   onTapAdd();
                 },

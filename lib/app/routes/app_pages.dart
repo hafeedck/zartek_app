@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:machine_test_zartek/app/modules/login/views/login_phone_view.dart';
+import 'package:machine_test_zartek/app/modules/login/views/otp_view.dart';
 
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
@@ -20,6 +22,16 @@ class AppPages {
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
+     GetPage(
+      name: _Paths.LOGIN_WITH_PHONE,
+      page: () => const LoginWithPhoneView(),
+      binding: LoginBinding(),
+    ),
+      GetPage(
+      name: _Paths.OTP_VIEW,
+      page: () => const OtpView(),
       binding: LoginBinding(),
     ),
     GetPage(

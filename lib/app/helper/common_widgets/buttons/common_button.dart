@@ -1,4 +1,3 @@
-import 'package:machine_test_zartek/app/extension/widget_extension.dart';
 import 'package:machine_test_zartek/app/helper/colors/app_color.dart';
 import 'package:machine_test_zartek/app/helper/common_widgets/svg_icons/svg_widget.dart';
 import 'package:flutter/material.dart';
@@ -105,15 +104,14 @@ class CommonButtonWithIconWidget extends StatelessWidget {
                 )
               : Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    20.0.spaceX,
                     if (icon != null)
-                      svgWidget(icon!, color: fontcolor, size: 18),
-                    75.0.spaceX,
-                    commonText(label, fontcolor ?? Colors.white, 15),
+                      svgWidget(icon!, color: fontcolor, size: 25),
+                    commonText(label, fontcolor ?? Colors.white, 17),
+                    const SizedBox()
                   ],
-                ).paddingAll(6),
+                ).paddingOnly(left: 20, right: 30, top: 6, bottom: 6),
         ),
       ),
     );

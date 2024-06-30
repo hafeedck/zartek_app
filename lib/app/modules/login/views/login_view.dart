@@ -5,6 +5,7 @@ import 'package:machine_test_zartek/app/extension/widget_extension.dart';
 import 'package:machine_test_zartek/app/helper/colors/app_color.dart';
 import 'package:machine_test_zartek/app/helper/common_widgets/buttons/common_button.dart';
 import 'package:machine_test_zartek/app/routes/app_pages.dart';
+import 'package:machine_test_zartek/app/services/firebase_auth.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -27,13 +28,15 @@ class LoginView extends GetView<LoginController> {
             const Spacer(),
             Center(
               child: SizedBox(
-                width: size.width * 0.7,
-                height: size.height * 0.06,
+                width: size.width * 0.8,
+                height: size.height * 0.08,
                 child: CommonButtonWithIconWidget(
                   label: "Google",
-                  onClick: () {},
+                  onClick: () {
+                    FireBaseAuthProvider().firebaseGoogleSignIn();
+                  },
                   icon: AssetsUrl().googleIcon,
-                  borderRadius: 20,
+                  borderRadius: 30,
                   color: AppColor.googlebuttonColor,
                 ),
               ),
@@ -42,16 +45,16 @@ class LoginView extends GetView<LoginController> {
 
             Center(
               child: SizedBox(
-                width: size.width * 0.7,
-                height: size.height * 0.06,
+                width: size.width * 0.8,
+                height: size.height * 0.08,
                 child: CommonButtonWithIconWidget(
                   label: "Phone",
                   onClick: () {
-                    Get.toNamed(Routes.HOME);
+                    Get.toNamed(Routes.LOGIN_WITH_PHONE);
                   },
                   icon: AssetsUrl().phoneIcon,
                   gradient: AppColor.buttonGradient1,
-                  borderRadius: 1820,
+                  borderRadius: 30,
                 ),
               ),
             )

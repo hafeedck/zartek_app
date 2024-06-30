@@ -49,6 +49,7 @@ Future<dynamic> openDialog(
                   Expanded(
                     child: TextButton(
                       style: ButtonStyle(
+                          // ignore: deprecated_member_use
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -66,6 +67,7 @@ Future<dynamic> openDialog(
                   Expanded(
                     child: TextButton(
                         style: ButtonStyle(
+                            // ignore: deprecated_member_use
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),

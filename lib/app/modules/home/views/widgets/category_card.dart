@@ -70,7 +70,7 @@ class CategoryItemCard extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.6,
                           child: commonText2(name, AppColor.primaryTextColor,
-                              15, FontWeight.w500),
+                              16, FontWeight.bold),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,6 +90,7 @@ class CategoryItemCard extends StatelessWidget {
                         15.0.spaceY,
                         CategoryCardWidget(
                           itemId: itemId,
+                          color: AppColor.phonebuttonColor,
                           onTapAdd: () {
                             onTapAdd();
                           },

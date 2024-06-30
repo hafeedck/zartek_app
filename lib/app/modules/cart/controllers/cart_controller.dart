@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
+import 'package:machine_test_zartek/app/helper/utils/utils.dart';
 import 'package:machine_test_zartek/app/model/item_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartController extends GetxController {
   RxList<CategoryDish> cartList = <CategoryDish>[].obs;
+  RxBool isLoading = false.obs;
   @override
   void onInit() {
     getData();
@@ -63,23 +64,52 @@ class CartController extends GetxController {
     }
   }
 
+  placeOrder() {
+    isLoading(true);
+    for (var item in cartList) {
+      item.qty.value = 0;
+    }
+    cartList.clear();
+    deleteData();
+    saveData();
+    update();
+    Get.back();
+    Utils.toastMessage("Order successfully placed");
+    isLoading(false);
+  }
+
   void deleteData() async {
+    isLoading(true);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.remove("cartdata");
+    isLoading(false);
   }
 
   addQty(CategoryDish items) {
+    isLoading(true);
     cartList.where((e) => e.dishId == items.dishId).first.qty =
         cartList.where((e) => e.dishId == items.dishId).first.qty++;
     deleteData();
     saveData();
     update();
+    isLoading(false);
   }
 
   minusQty(CategoryDish items) {
+    isLoading(true);
     cartList.where((e) => e.dishId == items.dishId).first.qty =
         cartList.where((e) => e.dishId == items.dishId).first.qty--;
     update();
+    isLoading(false);
+  }
+
+  removeFromCart(CategoryDish items) {
+    isLoading(true);
+    cartList.removeWhere((e) => e.dishId == items.dishId);
+    deleteData();
+    saveData();
+    update();
+    isLoading(false);
   }
 
   String calculateRate(num a, num b) {

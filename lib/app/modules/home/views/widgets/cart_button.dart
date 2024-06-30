@@ -8,11 +8,13 @@ class CategoryCardWidget extends StatefulWidget {
   final String? itemId;
   final Function onTapAdd;
   final Function onTapMinus;
+  final Color color;
   const CategoryCardWidget({
     super.key,
     this.itemId,
     required this.onTapAdd,
     required this.onTapMinus,
+    required this.color,
   });
 
   @override
@@ -30,8 +32,7 @@ class _CategoryCardWidgetState extends State<CategoryCardWidget> {
       height: 35,
       width: 120,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: AppColor.phonebuttonColor),
+          borderRadius: BorderRadius.circular(30), color: widget.color),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,8 +41,6 @@ class _CategoryCardWidgetState extends State<CategoryCardWidget> {
             onTap: () {
               setState(() {
                 widget.onTapMinus();
-                // cartController.cartList[isItem].qty =
-                //     cartController.cartList[isItem].qty++;
               });
             },
             child: const Icon(
@@ -60,8 +59,6 @@ class _CategoryCardWidgetState extends State<CategoryCardWidget> {
             onTap: () {
               setState(() {
                 widget.onTapAdd();
-                // cartController.cartList[isItem].qty =
-                //     cartController.cartList[isItem].qty++;
               });
             },
             child: const Icon(

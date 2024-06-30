@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:machine_test_zartek/app/helper/popup/logout_popup.dart';
 import 'package:machine_test_zartek/app/model/item_model.dart';
 import 'package:machine_test_zartek/app/modules/cart/controllers/cart_controller.dart';
 import 'package:machine_test_zartek/app/repository/category_repository.dart';
-import 'package:machine_test_zartek/app/routes/app_pages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
   final pageIndex = 0.obs;
@@ -49,14 +46,5 @@ class HomeController extends GetxController {
     update();
   }
 
-  void logOut() async {
-    dynamic returnResponse =
-        await openDialog('Logout', 'Are you sure you want to Logout ?');
-    if (returnResponse == true) {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.clear();
-
-      Get.offAllNamed(Routes.SPLASH);
-    }
-  }
+ 
 }
