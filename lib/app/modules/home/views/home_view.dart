@@ -41,6 +41,7 @@ class HomeView extends GetView<HomeController> {
                           .map((item) => Tab(text: item.menuCategory))
                           .toList(),
                     ),
+                    // tabview
                     Expanded(
                       child: TabBarView(
                         children: controller.itemsList
